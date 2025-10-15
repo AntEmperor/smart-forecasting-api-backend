@@ -12,7 +12,6 @@ from datetime import datetime, date, timedelta
 import joblib, json, os, traceback, math
 import pandas as pd
 import numpy as np
-from fastapi.middleware.cors import CORSMiddleware
 
 # -----------------------
 # Config - update if you move files
@@ -28,26 +27,37 @@ DAILY_MODEL_FILE = os.path.join(MODEL_DIR, "daily_mtlf_model.joblib")
 # -----------------------
 # App init & CORS (permissive for dev)
 # -----------------------
-app = FastAPI(title="SmartGrid STLF API (Aligned & Weekly Aggregation)")
 
-# ... (other code)
+
+app = FastAPI(title="SmartGrid STLF API (Aligned & Weekly Aggregation)") # This line is fine!
+
+# ----------------- BEGIN CORS FIX -----------------
+origins = [
+    # Explicitly allow the domain (for max safety)
+    "https://antemperor.github.io", 
+    
+    # 🌟 ALLOW BOTH SLASH AND NO-SLASH VERSIONS 🌟
+    "https://antemperor.github.io/smart-forecasting-app-frontend", 
+    "https://antemperor.github.io/smart-forecasting-app-frontend/",
+    
+    # The HTTPS wildcard is the strongest general fix
+    "https://*", 
+    
+    # Local testing origins
+    "http://127.0.0.1:5500", 
+    "http://localhost:8000",
+]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        # Explicitly allow your app domains
-        "https://antemperor.github.io", 
-        "https://antemperor.github.io/smart-forecasting-app-frontend",
-        # Allow any HTTPS origin for maximum compatibility (THE ULTIMATE FIX)
-        "https://*", 
-        # Your local testing origins
-        "http://127.0.0.1:5500", 
-        "http://localhost:8000",
-    ],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+# ----------------- END CORS FIX -----------------
+
+# ... rest of your FastAPI code
 
 # -----------------------
 # Globals
