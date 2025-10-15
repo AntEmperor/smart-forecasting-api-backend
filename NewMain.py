@@ -34,20 +34,15 @@ app = FastAPI(title="SmartGrid STLF API (Aligned & Weekly Aggregation)") # This 
 
 # ----------------- BEGIN CORS FIX -----------------
 origins = [
-    # Explicitly allow the domain (for max safety)
-    "https://antemperor.github.io", 
-    
-    # 🌟 ALLOW BOTH SLASH AND NO-SLASH VERSIONS 🌟
-    "https://antemperor.github.io/smart-forecasting-app-frontend", 
-    "https://antemperor.github.io/smart-forecasting-app-frontend/",
-    
-    # The HTTPS wildcard is the strongest general fix
-    "https://*", 
-    
-    # Local testing origins
-    "http://127.0.0.1:5500", 
-    "http://localhost:8000",
+
+    "https://antemperor.github.io",                        # main domain
+    "https://antemperor.github.io/",                       # domain with slash
+    "https://antemperor.github.io/smart-forecasting-app-frontend",   # repo path
+    "https://antemperor.github.io/smart-forecasting-app-frontend/",  # repo path + slash
+    "http://localhost:8000",                               # local dev
+    "http://127.0.0.1:5500",                               # VSCode Live Server
 ]
+from fastapi.middleware.cors import CORSMiddleware
 
 app.add_middleware(
     CORSMiddleware,
