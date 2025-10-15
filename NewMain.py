@@ -12,6 +12,7 @@ from datetime import datetime, date, timedelta
 import joblib, json, os, traceback, math
 import pandas as pd
 import numpy as np
+from fastapi.middleware.cors import CORSMiddleware
 
 # -----------------------
 # Config - update if you move files
@@ -29,10 +30,20 @@ DAILY_MODEL_FILE = os.path.join(MODEL_DIR, "daily_mtlf_model.joblib")
 # -----------------------
 app = FastAPI(title="SmartGrid STLF API (Aligned & Weekly Aggregation)")
 
-# Ensure CORS is permissive and correct
+# ... (other code)
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        # Explicitly allow your app domains
+        "https://antemperor.github.io", 
+        "https://antemperor.github.io/smart-forecasting-app-frontend",
+        # Allow any HTTPS origin for maximum compatibility (THE ULTIMATE FIX)
+        "https://*", 
+        # Your local testing origins
+        "http://127.0.0.1:5500", 
+        "http://localhost:8000",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
