@@ -64,14 +64,21 @@ app.add_middleware(
 # Globals
 # -----------------------
 MODELS: Dict[str, Any] = {"hourly": None, "daily": None}
-#PIPELINES: Dict[str, Any] = {"hourly": None, "daily": None}
-#FEATURE_COLS: Dict[str, Optional[List[str]]] = {"hourly": None, "daily": None}
 PREDICTION_HISTORY: Dict[str, deque] = {
     "hourly": deque(maxlen=24),
     "daily": deque(maxlen=7),
     "weekly": deque(maxlen=12),  # History for aggregated weekly trend
 }
+# --- GLOBAL VARIABLE INITIALIZATION (REQUIRED) ---
 
+# Initialize PIPELINES and FEATURE_COLS as empty dictionaries.
+# This prevents the "is not defined" crash and allows the apply_pipeline function to work safely.
+PIPELINES = {}
+FEATURE_COLS = {}
+
+# MODEL_DIR is no longer needed since we use simple file names, 
+# but we can initialize it to prevent crashes in old code references.
+MODEL_DIR = ""
 # -----------------------
 # Utility: JSON sanitization (convert NaN/inf/numpy types to JSON-safe values)
 # -----------------------
@@ -155,8 +162,6 @@ def load_all_artifacts():
 
     print("Artifact load summary:")
     print(" MODELS:", {k: (v is not None) for k, v in MODELS.items()})
-    #print(" PIPELINES:", {k: (v is not None) for k, v in PIPELINES.items()})
-    #print(" FEATURE_COLS loaded:", {k: (v is not None) for k, v in FEATURE_COLS.items()})
 
 load_all_artifacts()
 
