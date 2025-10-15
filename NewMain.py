@@ -20,11 +20,12 @@ import numpy as np
 # Model paths - ONLY HOURLY AND DAILY REQUIRED
 # ==========================
 # IMPORTANT: Ensure this path is 100% correct
-MODEL_DIR = r"C:\Users\Admin\smart forecasting app\data set"
-HOURLY_MODEL_FILE = os.path.join(MODEL_DIR, "hourly_stlf_model.joblib")
-DAILY_MODEL_FILE = os.path.join(MODEL_DIR, "daily_mtlf_model.joblib")
+# Use simple filenames because the files are in the same directory as NewMain.py on Render
+HOURLY_MODEL_FILE = "hourly_stlf_model.joblib"
+DAILY_MODEL_FILE = "daily_mtlf_model.joblib"
 
-# -----------------------
+# You also need to check your actual loading lines (e.g., joblib.load(HOURLY_MODEL_FILE)) 
+# to ensure they are now using these new simple variables.
 # App init & CORS (permissive for dev)
 # -----------------------
 
