@@ -64,8 +64,8 @@ app.add_middleware(
 # Globals
 # -----------------------
 MODELS: Dict[str, Any] = {"hourly": None, "daily": None}
-PIPELINES: Dict[str, Any] = {"hourly": None, "daily": None}
-FEATURE_COLS: Dict[str, Optional[List[str]]] = {"hourly": None, "daily": None}
+#PIPELINES: Dict[str, Any] = {"hourly": None, "daily": None}
+#FEATURE_COLS: Dict[str, Optional[List[str]]] = {"hourly": None, "daily": None}
 PREDICTION_HISTORY: Dict[str, deque] = {
     "hourly": deque(maxlen=24),
     "daily": deque(maxlen=7),
@@ -155,8 +155,8 @@ def load_all_artifacts():
 
     print("Artifact load summary:")
     print(" MODELS:", {k: (v is not None) for k, v in MODELS.items()})
-    print(" PIPELINES:", {k: (v is not None) for k, v in PIPELINES.items()})
-    print(" FEATURE_COLS loaded:", {k: (v is not None) for k, v in FEATURE_COLS.items()})
+    #print(" PIPELINES:", {k: (v is not None) for k, v in PIPELINES.items()})
+    #print(" FEATURE_COLS loaded:", {k: (v is not None) for k, v in FEATURE_COLS.items()})
 
 load_all_artifacts()
 
