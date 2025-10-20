@@ -2,7 +2,7 @@
 // NewJava.js 
 
 // Define the live base URL:
-const RENDER_API_BASE_URL = "https://smart-forecasting-api-backend-1.onrender.com"; 
+const API_URL = "https://smart-forecasting-api-backend-1.onrender.com"; 
 
 
 // Global State and Helpers
