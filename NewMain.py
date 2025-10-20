@@ -3,6 +3,7 @@ Rewritten backend - ALIGNED for Hourly/Daily Inputs.
 - Added robust error handling and explicit NaN/None checks to prevent 500 errors.
 - Weekly prediction is RESTORED to Daily Model Aggregation.
 """
+from fastapi import FastAPI
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
